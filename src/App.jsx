@@ -53,7 +53,16 @@ export default function App() {
       .maybeSingle();
 
     if (memberError || !membership) {
-      setError("This account is not connected to the Rodi & Bedo household yet.");
+      console.error("Membership check:", {
+        userId: user.id,
+        memberError,
+        membership
+      });
+      setError(
+        memberError
+          ? `Membership error: ${memberError.message}`
+          : `No membership found for user: ${user.id}`
+      );
       setLoading(false);
       return;
     }
